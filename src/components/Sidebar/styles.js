@@ -63,7 +63,7 @@ export const NewPlaylist = styled.button`
     border: 0;
     border-top: 1px solid #282828;
     font-size: 13px;
-    color: #b3b3b3;
+    color: #c8c9d2;
     display: flex;
     align-items: center;
     padding: 15px 25px;

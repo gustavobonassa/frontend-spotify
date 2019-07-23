@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         text-rendering: optimizeLegibility !important;
         -webkit-font-smoothing: antialiased !important;
-        background: #181818;
+        background: #3A3A40;
         font-family: 'Montserrat', sans-serif;
         color: #FFF;
     }

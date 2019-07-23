@@ -8,6 +8,7 @@ export const Types= {
 const INITIAL_STATE = {
     signedIn: !!localStorage.getItem('@Omni:token'),
     token: localStorage.getItem('@Omni:token') || null,
+    user: JSON.parse(localStorage.getItem('@Omni:user')) || null,
     roles: [],
     permissions: []
 };
@@ -15,9 +16,9 @@ const INITIAL_STATE = {
 export default function auth(state = INITIAL_STATE, action) {
     switch (action.type) {
         case Types.SIGN_IN_SUCCESS:
-            return { ...state, signedIn: true, token: action.payload.token };
+            return { ...state, signedIn: true, token: action.payload.data.token, user: action.payload.data.user };
         case Types.SIGN_OUT:
-            return { ...state, signedIn: false, token: null };
+            return { ...state, signedIn: false, token: null, user: null };
         default:
             return state;
     }
@@ -33,9 +34,9 @@ export const Creators = {
         payload: { data }
     }),
 
-    signInSuccess: token => ({
+    signInSuccess: data => ({
         type: Types.SIGN_IN_SUCCESS,
-        payload: { token },
+        payload: { data },
     }),
     signOut: () => ({
         type: Types.SIGN_OUT

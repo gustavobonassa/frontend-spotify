@@ -34,10 +34,10 @@ class Sidebar extends Component {
                 <div>
                     <Nav main>
                         <li>
-                            <Link to="/">Navegar</Link>
+                            <Link to="/">Inicio</Link>
                         </li>
                         <li>
-                            <a href="">Rádio</a>
+                            <Link to="/search">Buscar música</Link>
                         </li>
                     </Nav>
                     <Nav>
@@ -47,30 +47,7 @@ class Sidebar extends Component {
                         <li>
                             <a href="">Seu Daily Mix</a>
                         </li>
-                        <li>
-                            <a href="">Tocados recentemente</a>
-                        </li>
-                        <li>
-                            <a href="">Músicas</a>
-                        </li>
-                        <li>
-                            <a href="">Álbums</a>
-                        </li>
-                        <li>
-                            <a href="">Artistas</a>
-                        </li>
-                        <li>
-                            <a href="">Estações</a>
-                        </li>
-                        <li>
-                            <a href="">Arquivos locais</a>
-                        </li>
-                        <li>
-                            <a href="">Videos</a>
-                        </li>
-                        <li>
-                            <a href="">Podcasts</a>
-                        </li>
+
                     </Nav>
 
                     <Nav>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,7 +9,7 @@ import { Creators as PlayerActions } from '../../store/ducks/player';
 
 import Loading from '../../components/Loading';
 
-import { Container, Header, SongList, SongItem } from './styles';
+import { Container, Header, SongList, SongItem, ButtonPlay } from './styles';
 
 import ClockIcon from '../../assets/images/clock.svg';
 import PlusIcon from '../../assets/images/plus.svg';
@@ -17,7 +18,7 @@ class Playlist extends Component {
     static propTypes = {
         match: PropTypes.shape({
             params: PropTypes.shape({
-                id: PropTypes.number,
+                id: PropTypes.string,
             }),
         }).isRequired,
         getPlaylistDetailsRequest: PropTypes.func.isRequired,
@@ -73,7 +74,10 @@ class Playlist extends Component {
                         <h1>{playlist.title}</h1>
                         { !!playlist.songs && <p>{playlist.songs.length} músicas</p> }
 
-                        <button>PLAY</button>
+                        <ButtonPlay>PLAY</ButtonPlay>
+                        <Link to={`/search/${playlist.id}`}>
+                            <ButtonPlay color="#b77d41">ADICIONAR MÚSICA</ButtonPlay>
+                        </Link>
                     </div>
                 </Header>
 
@@ -104,7 +108,7 @@ class Playlist extends Component {
                                     <td>{song.name}</td>
                                     <td>{song.author}</td>
                                     <td>{song.album}</td>
-                                    <td>3:26</td>
+                                    <td>{song.duration}</td>
                                 </SongItem>
                             ))
                         )

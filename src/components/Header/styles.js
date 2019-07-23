@@ -7,6 +7,18 @@ export const Container = styled.header`
     align-items: center;
     justify-content: space-between;
     margin: 10px 0 0;
+
+    > div {
+        display: flex;
+        button {
+            margin-left: 10px;
+            padding: 5px;
+            background-color: transparent;
+            border: 1px solid #c16a6a;
+            color: #c16a6a;
+            border-radius: 5px;
+        }
+    }
 `;
 
 export const Search = styled.div`

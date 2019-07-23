@@ -47,20 +47,20 @@ export const Header = styled.header`
             letter-spacing: 1.11px;
             text-transform: uppercase;
         }
-
-        button {
-            background: #1db854;
-            height: 32px;
-            border-radius: 16px;
-            color: #FFF;
-            line-height: 32px;
-            padding: 0 35px;
-            border: 0;
-            margin-top: 10px;
-            font-size: 12px;
-            letter-spacing: 1.11px;
-        }
     }
+`;
+export const ButtonPlay = styled.button`
+    background: ${props => props.color || "#1db854" };
+    height: 32px;
+    border-radius: 16px;
+    color: #FFF;
+    line-height: 32px;
+    padding: 0 35px;
+    border: 0;
+    margin-top: 10px;
+    font-size: 12px;
+    margin-right: 5px;
+    letter-spacing: 1.11px;
 `;
 
 export const SongList = styled.table`
