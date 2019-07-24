@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 
 import Main from '../pages/Main';

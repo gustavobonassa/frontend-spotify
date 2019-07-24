@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+//import { Provider } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import Header from '../../components/Header';
@@ -24,7 +24,7 @@ const Main = () => (
                 <Switch>
                     <Route exact path="/" component={Browse} />
                     <Route path="/playlists/:id" component={Playlist} />
-                    <Route path="/search" component={Search} />
+                    <Route path="/search/:id?" component={Search} />
                     <Route path="*" render={() => (<div>Página não encontrada</div>)} />
                 </Switch>
             </Content>

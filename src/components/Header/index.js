@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as AuthActions } from '../../store/ducks/auth'
-import { Container, Search, User } from './styles';
+import { Container, User } from './styles';
 
 class Header extends Component {
     static propTypes = {

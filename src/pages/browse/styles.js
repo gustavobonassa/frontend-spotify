@@ -5,7 +5,8 @@ import { Spinner } from '../../components/Loading/styles';
 
 export const Container = styled.div`
     flex: 1;
-    margin-top: 110px;
+    margin-top: 30px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 `;
