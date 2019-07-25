@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 
-import { Container, Result, AllResults } from './styles';
+import { Container, Result, AllResults, Downloading } from './styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Modal from '../../components/Modal';
 import Button from '../../styles/components/Button';
+import { Progress } from 'semantic-ui-react'
 
 import { Creators as addSongAction } from '../../store/ducks/addSong';
 import { Creators as PlaylistsActions } from '../../store/ducks/playlists';
 
 import setupWebsocket from '../../services/websocket';
-const ws = setupWebsocket();
+const ws = setupWebsocket().subscribe('song');
 
 class Search extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             searchFe: '',
@@ -22,7 +23,8 @@ class Search extends Component {
             playlistId: props.match.params.id || -1,
             quality: 'highestaudio',
             type: 'mp3',
-            url: ''
+            url: '',
+            downloadProgress: { atualSize: "2.85", maxSize: "2.85", audioName: "Froid part. Santzu -  Autoestima em Dó (prod. Santzu)", duration: "3:13", finished: false }
         };
         this.chat = null;
     }
@@ -31,7 +33,19 @@ class Search extends Component {
         this.chat = ws;
 
         this.chat.on('message', (message) => {
-            console.log(message)
+            //console.log(message);
+            var percent = 0;
+            if (message.atualSize) {
+                percent = parseInt((100 * message.atualSize) / message.maxSize);
+            }
+            this.setState({
+                downloadProgress: { ...message, percent }
+            });
+            if (message.finished === true) {
+                this.setState({
+                    downloadProgress: []
+                });
+            }
         })
         this.props.getPlaylistsRequest();
     }
@@ -44,8 +58,12 @@ class Search extends Component {
             search: searchFe,
             maxResults
         }
-        if(data.search){
-            getSearchRequest(data);
+        if (data.search.indexOf('https://www.youtube.com/') > -1) {
+            this.addSongClick(data.search)
+        } else {
+            if (data.search) {
+                getSearchRequest(data);
+            }
         }
     }
     handleInputChange = (e) => {
@@ -60,7 +78,7 @@ class Search extends Component {
     }
     addSongSubmit = (e) => {
         e.preventDefault();
-
+        const { closeModal } = this.props;
         const data = {
             url: this.state.url,
             type: this.state.type,
@@ -68,26 +86,38 @@ class Search extends Component {
             playlist: parseInt(this.state.playlistId)
         }
         //console.log(data)
-        this.chat.emit('song', data)
+        this.chat.emit('song', data);
+        closeModal();
     }
-    render(){
-        const { searchFe, maxResults, quality, playlistId, type } = this.state;
+    render() {
+        const { searchFe, maxResults, quality, playlistId, type, downloadProgress } = this.state;
         const { results } = this.props.addSong.search;
         const { playlistModalOpen } = this.props.addSong;
         const { closeModal } = this.props;
+        console.log(downloadProgress)
         return (
             <Container>
                 <h1>Buscar música do youtube</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="searchFe" placeholder="Search" value={searchFe} onChange={this.handleInputChange}/>
-                    <input type="number" name="maxResults" value={maxResults} onChange={this.handleInputChange}/>
+                    <input type="text" name="searchFe" placeholder="Search" value={searchFe} onChange={this.handleInputChange} />
+                    <input type="number" name="maxResults" value={maxResults} onChange={this.handleInputChange} />
                     <Button type="submit">BUSCAR</Button>
                 </form>
+                {downloadProgress.length !== 0 && (
+                    <Downloading>
+                        <span>{downloadProgress.audioName}</span>
+                        <span>
+                            {downloadProgress.atualSize}MB - {downloadProgress.maxSize}MB
+                        </span>
+                        <Progress percent={downloadProgress.percent} indicating progress>
+                        </Progress>
+                    </Downloading>
+                )}
                 <AllResults>
                     {results && results.map(result => (
                         <Result key={result.id}>
                             <div className="videoFull">
-                                <img src={result.thumbnails.default.url} alt="Thumb"/>
+                                <img src={result.thumbnails.default.url} alt="Thumb" />
                                 <div className="videoName">{result.title}</div>
                             </div>
                             <div>
@@ -133,6 +163,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({...addSongAction,...PlaylistsActions}, dispatch);
+    bindActionCreators({ ...addSongAction, ...PlaylistsActions }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -62,3 +62,8 @@ export const Result = styled.div`
         border-bottom: none;
     }
 `;
+
+export const Downloading = styled.div`
+    margin: 10px;
+    padding: 10px;
+`;
