@@ -16,6 +16,7 @@ import PlayIcon from '../../assets/images/play.svg';
 import PauseIcon from '../../assets/images/pause.svg';
 import ForwardIcon from '../../assets/images/forward.svg';
 import RepeatIcon from '../../assets/images/repeat.svg';
+import RepeatActiveIcon from '../../assets/images/repeatActive.svg';
 
 const Player = ({
     player,
@@ -30,14 +31,17 @@ const Player = ({
     setPosition,
     positionShown,
     progress,
-    setVolume
+    setVolume,
+    setRepeat,
+    playAgain,
+    repeat
 }) => (
         <Container>
             {!!player.currentSong && (
                 <Sound
                     url={player.currentSong.url}
                     playStatus={player.status}
-                    onFinishedPlaying={next}
+                    onFinishedPlaying={(repeat) ? playAgain : next}
                     onPlaying={playing}
                     position={player.position}
                     volume={player.volume}
@@ -67,7 +71,7 @@ const Player = ({
                             <button onClick={play}><img src={PlayIcon} alt="Play" /></button>
                         )}
                     <button onClick={next}><img src={ForwardIcon} alt="Forward" /></button>
-                    <button><img src={RepeatIcon} alt="Repeat" /></button>
+                    <button onClick={setRepeat}><img src={(repeat) ? RepeatActiveIcon : RepeatIcon} alt="Repeat" /></button>
                 </Controls>
 
                 <Time>
@@ -118,9 +122,12 @@ Player.propTypes = {
     handlePosition: PropTypes.func,
     setPosition: PropTypes.func,
     setVolume: PropTypes.func,
+    playAgain: PropTypes.func,
+    setRepeat: PropTypes.func,
     position: PropTypes.string,
     duration: PropTypes.string,
     positionShown: PropTypes.string,
+    repeat: PropTypes.bool,
     progress: PropTypes.number.isRequired,
 }
 
@@ -143,6 +150,7 @@ const mapStateToProps = state => ({
     progress: parseInt(
         (state.player.positionShown || state.player.position) * (1000 / state.player.duration),
         10) || 0,
+    repeat: state.player.repeat
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(PlayerActions, dispatch);

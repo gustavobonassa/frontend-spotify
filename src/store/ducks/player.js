@@ -10,6 +10,8 @@ export const Types = {
     HANDLE_POSITION: 'player/HANDLE_POSITION',
     SET_POSITION: 'player/SET_POSITION',
     SET_VOLUME: 'player/SET_VOLUME',
+    SET_REPEAT: 'player/SET_REPEAT',
+    PLAY_AGAIN: 'player/PLAY_AGAIN',
 };
 
 const INITIAL_STATE = {
@@ -20,6 +22,7 @@ const INITIAL_STATE = {
     positionShown: null,
     duration: null,
     volume: 100,
+    repeat: false
 };
 
 export default function player(state = INITIAL_STATE, action) {
@@ -36,9 +39,9 @@ export default function player(state = INITIAL_STATE, action) {
 
             if (next) {
                 return { ...state, currentSong: next, status: Sound.status.PLAYING, position: 0 }
+            } else {
+                return { ...state, currentSong: state.list[0], status: Sound.status.PLAYING, position: 0 }
             }
-
-            return state;
         }
         case Types.PREV: {
             const currentIndex = state.list.findIndex(song => song.id === state.currentSong.id);
@@ -46,9 +49,9 @@ export default function player(state = INITIAL_STATE, action) {
 
             if (prev) {
                 return { ...state, currentSong: prev, status: Sound.status.PLAYING, position: 0 }
+            } else {
+                return { ...state, currentSong: state.list[state.list.length - 1], status: Sound.status.PLAYING, position: 0 }
             }
-
-            return state;
         }
         case Types.PLAYING:
             return { ...state, ...action.payload };
@@ -58,6 +61,10 @@ export default function player(state = INITIAL_STATE, action) {
             return { ...state, position: state.duration * action.payload.percent, positionShown: null };
         case Types.SET_VOLUME:
             return { ...state, volume: action.payload.volume };
+        case Types.SET_REPEAT:
+            return { ...state, repeat: !state.repeat }
+        case Types.PLAY_AGAIN:
+            return { ...state, status: Sound.status.PLAYING, position: 0 }
         default:
             return state;
     }
@@ -76,6 +83,10 @@ export const Creators = {
     next: () => ({ type: Types.NEXT }),
 
     prev: () => ({ type: Types.PREV }),
+
+    setRepeat: () => ({ type: Types.SET_REPEAT }),
+
+    playAgain: () => ({ type: Types.PLAY_AGAIN }),
 
     playing: ({ position, duration }) => ({
         type: Types.PLAYING,

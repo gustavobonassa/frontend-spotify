@@ -1,6 +1,7 @@
-export const Types= {
+export const Types = {
     GET_REQUEST: 'playlist/GET_REQUEST',
     GET_SUCCESS: 'playlist/GET_SUCCESS',
+    NEW_PLAYLIST_REQUEST: 'playlist/NEW_PLAYLIST_REQUEST'
 };
 
 const INITIAL_STATE = {
@@ -25,5 +26,10 @@ export const Creators = {
     getPlaylistsSuccess: data => ({
         type: Types.GET_SUCCESS,
         payload: { data },
-    })
+    }),
+
+    newPlaylistRequest: data => ({
+        type: Types.NEW_PLAYLIST_REQUEST,
+        payload: { data }
+    }),
 };

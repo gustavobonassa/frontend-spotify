@@ -62,10 +62,12 @@ class Sidebar extends Component {
                         ))}
                     </Nav>
                 </div>
-                <NewPlaylist>
-                    <img src={AddPlaylistIcon} alt="Adicionar playlist" />
-                    Nova playlist
-                </NewPlaylist>
+                <Link to="/newplaylist">
+                    <NewPlaylist>
+                        <img src={AddPlaylistIcon} alt="Adicionar playlist" />
+                        Nova playlist
+                    </NewPlaylist>
+                </Link>
             </Container>
         );
     }

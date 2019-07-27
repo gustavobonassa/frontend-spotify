@@ -66,4 +66,12 @@ export const Result = styled.div`
 export const Downloading = styled.div`
     margin: 10px;
     padding: 10px;
+    border: 1px solid #4fd84f;
+    border-radius: 5px;
+
+    .titleDown {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
 `;

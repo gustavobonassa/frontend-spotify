@@ -6,7 +6,7 @@ import playlistDetails from './playlistDetails';
 import error from './error';
 import player from './player';
 import auth from './auth';
-import addSong from './addSong';
+import song from './song';
 import { reducer as toastr } from 'react-redux-toastr';
 
 export default history => combineReducers({
@@ -15,7 +15,7 @@ export default history => combineReducers({
     error,
     player,
     auth,
-    addSong,
+    song,
     toastr,
     router: connectRouter(history)
 });

@@ -61,6 +61,7 @@ export const Nav = styled.ul`
 export const NewPlaylist = styled.button`
     background: transparent;
     border: 0;
+    width: 100%;
     border-top: 1px solid #282828;
     font-size: 13px;
     color: #c8c9d2;
@@ -75,5 +76,11 @@ export const NewPlaylist = styled.button`
 
     img {
         margin-right: 10px;
+    }
+
+    a {
+        text-decoration: none;
+        margin: 0;
+        border: 0;
     }
 `;

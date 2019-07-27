@@ -1,6 +1,7 @@
-export const Types= {
+export const Types = {
     GET_REQUEST: 'playlistDetails/GET_REQUEST',
     GET_SUCCESS: 'playlistDetails/GET_SUCCESS',
+    DELETE_SONG: 'song/DELETE_SONG',
 };
 
 const INITIAL_STATE = {
@@ -20,12 +21,18 @@ export default function playlistDetails(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-    getPlaylistDetailsRequest: id => ({ type: Types.GET_REQUEST,
+    getPlaylistDetailsRequest: id => ({
+        type: Types.GET_REQUEST,
         payload: { id }
     }),
 
     getPlaylistDetailsSuccess: data => ({
         type: Types.GET_SUCCESS,
         payload: { data },
-    })
+    }),
+
+    deleteSong: (id, plid) => ({
+        type: Types.DELETE_SONG,
+        payload: { id, plid }
+    }),
 };
