@@ -71,24 +71,25 @@ class Playlist extends Component {
         //console.log(e, data);
         const playlist = this.props.playlistDetails.data;
         var index = playlist.songs.findIndex((f) => f.id === parseInt(data.target.className));
-
-        this.setState({
-            clickedSong: playlist.songs[index]
-        });
-        if (data.foo === 'play') {
-            this.props.loadSong(playlist.songs[index], playlist.songs)
-        }
-        if (data.foo === 'baixar') {
-            const link = document.createElement('a');
-            link.href = playlist.songs[index].url;
-            link.setAttribute('download', 'song.mp3');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-        if (data.foo === 'excluir') {
-            const { openDelSongModal } = this.props;
-            openDelSongModal();
+        if (index !== -1) {
+            this.setState({
+                clickedSong: playlist.songs[index]
+            });
+            if (data.foo === 'play') {
+                this.props.loadSong(playlist.songs[index], playlist.songs)
+            }
+            if (data.foo === 'baixar') {
+                const link = document.createElement('a');
+                link.href = playlist.songs[index].url;
+                link.setAttribute('download', 'song.mp3');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+            if (data.foo === 'excluir') {
+                const { openDelSongModal } = this.props;
+                openDelSongModal();
+            }
         }
     }
     handleSubmitDel = (e) => {
