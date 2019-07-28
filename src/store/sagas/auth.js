@@ -34,6 +34,7 @@ export function* signUp(action) {
         const response = yield call(api.post, 'users', action.payload.data);
 
         localStorage.setItem('@Omni:token', response.data.token);
+        localStorage.setItem('@Omni:user', JSON.stringify(response.data.user));
 
         yield put(AuthActions.signInSuccess(response.data.token));
         yield put(push('/'));
@@ -59,4 +60,22 @@ export function* getPermissions() {
     const { roles, permissions } = response.data
 
     yield put(AuthActions.getPermissionsSuccess(roles, permissions));
+}
+
+export function* inviteUser(action) {
+    try {
+        yield call(api.post, 'invites', { invites: [action.payload.email] });
+
+        yield put(toastrActions.add({
+            type: 'success',
+            title: 'Convite enviado',
+            message: 'Convite enviado com sucesso'
+        }))
+    } catch (error) {
+        yield put(toastrActions.add({
+            type: 'error',
+            title: 'Erro na operação',
+            message: 'Houve um erro, tente novamente',
+        }))
+    }
 }

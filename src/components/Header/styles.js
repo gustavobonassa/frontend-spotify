@@ -8,7 +8,7 @@ export const Container = styled.header`
     justify-content: space-between;
     margin: 10px 0 0;
 
-    > div {
+    .logout {
         display: flex;
         button {
             margin-left: 10px;
@@ -17,6 +17,23 @@ export const Container = styled.header`
             border: 1px solid #c16a6a;
             color: #c16a6a;
             border-radius: 5px;
+        }
+    }
+    input {
+        height: 40px;
+        width: 100%;
+        padding: 10px;
+        border-radius: 3px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #f6f6f6;
+        margin-top: 8px;
+        margin-right: 5px;
+        transition: border 0.15s easy;
+        font-size: 16px;
+
+        &:focus {
+            border-color: #7289da;
         }
     }
 `;

@@ -1,8 +1,9 @@
-export const Types= {
+export const Types = {
     SIGN_UP_REQUEST: 'auth/SIGN_UP_REQUEST',
     SIGN_IN_REQUEST: 'auth/SIGN_IN_REQUEST',
     SIGN_IN_SUCCESS: 'auth/SIGN_IN_SUCCESS',
     SIGN_OUT: 'auth/SIGN_OUT',
+    INVITE_USER: 'invite/INVITE_USER',
 };
 
 const INITIAL_STATE = {
@@ -25,9 +26,9 @@ export default function auth(state = INITIAL_STATE, action) {
 }
 
 export const Creators = {
-    signInRequest: (email,password) => ({
+    signInRequest: (email, password) => ({
         type: Types.SIGN_IN_REQUEST,
-        payload: { email,password }
+        payload: { email, password }
     }),
     signUpRequest: (data) => ({
         type: Types.SIGN_UP_REQUEST,
@@ -40,5 +41,9 @@ export const Creators = {
     }),
     signOut: () => ({
         type: Types.SIGN_OUT
-    })
+    }),
+    inviteUser: (email) => ({
+        type: Types.INVITE_USER,
+        payload: { email }
+    }),
 };
