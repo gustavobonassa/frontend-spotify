@@ -5,7 +5,7 @@ import api from '../../services/api';
 
 import { Creators as AuthActions } from '../ducks/auth';
 
-export function* signIn(action){
+export function* signIn(action) {
     try {
         const response = yield call(api.post, 'sessions', { email: action.payload.email, password: action.payload.password });
 
@@ -29,7 +29,7 @@ export function* signOut() {
     yield put(push('/signin'))
 }
 
-export function* signUp(action){
+export function* signUp(action) {
     try {
         const response = yield call(api.post, 'users', action.payload.data);
 
@@ -41,16 +41,16 @@ export function* signUp(action){
         yield put(toastrActions.add({
             type: 'error',
             title: 'Falha no cadastro',
-            message: 'Você foi convidado para algum time?'
+            message: 'Você precisa de um e-mail convidado'
         }))
     }
 }
 
-export function* getPermissions(){
+export function* getPermissions() {
     const team = yield select(state => state.teams.active);
     const signedIn = yield select(state => state.auth.signedIn);
 
-    if(!signedIn || !team){
+    if (!signedIn || !team) {
         return;
     }
 
