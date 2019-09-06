@@ -42,7 +42,7 @@ export function* signUp(action) {
         yield put(toastrActions.add({
             type: 'error',
             title: 'Falha no cadastro',
-            message: 'Você precisa de um e-mail convidado'
+            message: 'Você precisa de um e-mail convidado ou nome já usado'
         }))
     }
 }

@@ -11,8 +11,9 @@ import { Progress } from 'semantic-ui-react'
 import { Creators as SongAction } from '../../store/ducks/song';
 import { Creators as PlaylistsActions } from '../../store/ducks/playlists';
 
-import setupWebsocket from '../../services/websocket';
-const ws = setupWebsocket().subscribe('song');
+import connection from '../../services/websocket';
+
+let subscription;
 
 class Search extends Component {
     constructor(props) {
@@ -30,9 +31,10 @@ class Search extends Component {
     }
 
     componentDidMount() {
-        this.chat = ws;
+        connection.connect();
+        subscription = connection.subscribe('song');
 
-        this.chat.on('message', (message) => {
+        subscription.on('message', (message) => {
             //console.log(message);
 
             this.setState({
@@ -40,6 +42,7 @@ class Search extends Component {
             });
 
         })
+        console.log(subscription)
         this.props.getPlaylistsRequest();
     }
     handleSubmit = (e) => {
@@ -71,6 +74,7 @@ class Search extends Component {
     }
     addSongSubmit = (e) => {
         e.preventDefault();
+
         const { closeModal } = this.props;
         const data = {
             url: this.state.url,
@@ -79,7 +83,7 @@ class Search extends Component {
             playlist: parseInt(this.state.playlistId)
         }
         //console.log(data)
-        this.chat.emit('song', data);
+        subscription.emit('song', data);
         closeModal();
     }
     render() {
