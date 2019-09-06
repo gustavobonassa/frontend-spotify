@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import api from '../../services/api';
+import { push } from 'connected-react-router';
 
 import { Creators as PlaylistDetailsActions } from '../ducks/playlistDetails';
 import { Creators as ErrorActions } from '../ducks/error';
@@ -30,6 +31,24 @@ export function* delSong(action) {
             type: 'error',
             title: 'Não foi possivel deletar a música',
             message: 'A música não foi deletada'
+        }))
+    }
+}
+export function* delPlaylist(action) {
+    try {
+        yield call(api.delete, `/playlist/${action.payload.id}`);
+        yield put(toastrActions.add({
+            type: 'success',
+            title: 'Playlist deletada com sucesso',
+            message: 'Playlist deletada'
+        }));
+
+        yield put(push('/'));
+    } catch (err) {
+        yield put(toastrActions.add({
+            type: 'error',
+            title: 'Não foi possivel deletar a playlist',
+            message: 'A playlist não foi deletada'
         }))
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import Dropdown from '../../components/Dropdown';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,14 +11,15 @@ import { Creators as PlayerActions } from '../../store/ducks/player';
 import { Creators as SongActions } from '../../store/ducks/song';
 
 import Loading from '../../components/Loading';
-
 import Button from '../../styles/components/Button';
 import Modal from '../../components/Modal';
+import axios from 'axios';
 
 import { Container, Header, SongList, SongItem, ButtonPlay } from './styles';
 
 import ClockIcon from '../../assets/images/clock.svg';
 import PlusIcon from '../../assets/images/plus.svg';
+import DeleteIcon from '../../assets/images/delete.svg';
 
 class Playlist extends Component {
     static propTypes = {
@@ -49,10 +51,12 @@ class Playlist extends Component {
 
     state = {
         selectedSong: null,
-        clickedSong: null
+        clickedSong: null,
+        userId: -1
     }
 
     componentDidMount() {
+        this.setState({ userId: JSON.parse(localStorage.getItem('@Omni:user')).id });
         this.loadPlaylistDetails();
     }
 
@@ -67,7 +71,7 @@ class Playlist extends Component {
 
         this.props.getPlaylistDetailsRequest(id);
     }
-    handleClick = (e, data) => {
+    handleClick = async (e, data) => {
         //console.log(e, data);
         const playlist = this.props.playlistDetails.data;
         var index = playlist.songs.findIndex((f) => f.id === parseInt(data.target.className));
@@ -79,18 +83,29 @@ class Playlist extends Component {
                 this.props.loadSong(playlist.songs[index], playlist.songs)
             }
             if (data.foo === 'baixar') {
-                const link = document.createElement('a');
-                link.href = playlist.songs[index].url;
-                link.setAttribute('download', 'song.mp3');
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                await axios({
+                    url: playlist.songs[index].url,
+                    method: 'GET',
+                    responseType: 'blob'
+                }).then((response) => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', `${playlist.songs[index].name}.mp3`);
+                    document.body.appendChild(link);
+                    link.click();
+                });
+
             }
             if (data.foo === 'excluir') {
                 const { openDelSongModal } = this.props;
                 openDelSongModal();
             }
         }
+    }
+    modalDelPlaylist = () => {
+        const { openDelModal } = this.props;
+        openDelModal();
     }
     handleSubmitDel = (e) => {
         e.preventDefault();
@@ -99,6 +114,14 @@ class Playlist extends Component {
 
         closeDelSongModal();
         deleteSong(this.state.clickedSong.id, id);
+    }
+    handleSubmitPlaylistDel = (e) => {
+        e.preventDefault();
+        const { deletePlaylist, closeDelModal } = this.props;
+        const { id } = this.props.match.params;
+
+        closeDelModal();
+        deletePlaylist(id);
     }
     handlePlayButton = () => {
         const { selectedSong } = this.state;
@@ -114,8 +137,9 @@ class Playlist extends Component {
     renderDetails = () => {
         const playlist = this.props.playlistDetails.data;
         const { delSongModalOpen } = this.props.song;
-        const { closeDelSongModal } = this.props;
-        const { clickedSong } = this.state;
+        const { delModalOpen } = this.props.playlistDetails;
+        const { closeDelSongModal, closeDelModal } = this.props;
+        const { clickedSong, userId } = this.state;
         return (
             <Container>
                 <Header>
@@ -127,9 +151,14 @@ class Playlist extends Component {
                         {!!playlist.songs && <p>{playlist.songs.length} músicas</p>}
 
                         <ButtonPlay onClick={this.handlePlayButton}>PLAY</ButtonPlay>
-                        <Link to={`/search/${playlist.id}`}>
-                            <ButtonPlay color="#b77d41">ADICIONAR MÚSICA</ButtonPlay>
-                        </Link>
+                        {(userId === playlist.user_id) && (
+                            <>
+                                <Link to={`/search/${playlist.id}`}>
+                                    <ButtonPlay color="#b77d41">ADICIONAR MÚSICA</ButtonPlay>
+                                </Link>
+                                <ButtonPlay color="#8c8ccc" onClick={this.delPlaylist}><Dropdown func={this.modalDelPlaylist} /></ButtonPlay>
+                            </>
+                        )}
                     </div>
                 </Header>
                 <ContextMenuTrigger id="some_unique_identifier">
@@ -173,7 +202,7 @@ class Playlist extends Component {
                         <MenuItem data={{ foo: 'play' }} onClick={this.handleClick}>
                             Play
                         </MenuItem>
-                        <MenuItem data={{ foo: 'baixar' }} onClick={this.handleClick} download>
+                        <MenuItem data={{ foo: 'baixar' }} onClick={this.handleClick}>
                             Download
                         </MenuItem>
                         <MenuItem divider />
@@ -189,6 +218,15 @@ class Playlist extends Component {
                             <div>Tem certeza que deseja excluir a música <strong>{clickedSong.name}</strong>?</div>
                             <Button type="submit" color="danger">EXCLUIR</Button>
                             <Button size="small" color="gray" onClick={closeDelSongModal}>Cancelar</Button>
+                        </form>
+                    </Modal>
+                )}
+                {delModalOpen && (
+                    <Modal>
+                        <form onSubmit={this.handleSubmitPlaylistDel}>
+                            <div>Tem certeza que deseja excluir essa playlist?</div>
+                            <Button type="submit" color="danger">EXCLUIR</Button>
+                            <Button size="small" color="gray" onClick={closeDelModal}>Cancelar</Button>
                         </form>
                     </Modal>
                 )}

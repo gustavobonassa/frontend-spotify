@@ -7,7 +7,7 @@ import { Types as SongTypes } from '../ducks/song';
 
 import { signIn, signOut, signUp, inviteUser } from './auth';
 import { getPlaylists, newPlaylist } from './playlists';
-import { getPlaylistDetails, delSong } from './playlistDetails';
+import { getPlaylistDetails, delSong, delPlaylist } from './playlistDetails';
 import { getSearch } from './song';
 
 export default function* rootSaga() {
@@ -23,6 +23,8 @@ export default function* rootSaga() {
 
         takeLatest(SongTypes.GET_SEARCH_REQUEST, getSearch),
         takeLatest(PlaylistDetailsTypes.DELETE_SONG, delSong),
+
+        takeLatest(PlaylistDetailsTypes.DELETE_PLAYLIST, delPlaylist),
 
     ]);
 };

@@ -5,6 +5,7 @@ import { Spinner } from '../../components/Loading/styles';
 export const Container = styled.div`
     margin-top: 30px;
     overflow-y: auto;
+    height: 100%;
 
     ${Spinner} {
         height: 48px;
@@ -107,7 +108,7 @@ export const Header = styled.header`
         height: 220px;
     }
 
-    div {
+    > div {
         margin-left: 20px;
 
         span {
@@ -141,6 +142,12 @@ export const ButtonPlay = styled.button`
     font-size: 12px;
     margin-right: 5px;
     letter-spacing: 1.11px;
+
+    > img {
+        width: 20px;
+        height: 32px;
+
+    }
 `;
 
 export const SongList = styled.table`
