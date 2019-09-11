@@ -19,7 +19,6 @@ import { Container, Header, SongList, SongItem, ButtonPlay } from './styles';
 
 import ClockIcon from '../../assets/images/clock.svg';
 import PlusIcon from '../../assets/images/plus.svg';
-import DeleteIcon from '../../assets/images/delete.svg';
 
 class Playlist extends Component {
     static propTypes = {
