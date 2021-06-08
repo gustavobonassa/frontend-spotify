@@ -1,24 +1,3 @@
-inicia o app
-
-yarn add styled-components
-
-yarn add rc-slider //volume
-
-yarn add react-router-dom
-
-yarn add reactotron-react-js reactotron-redux reactotron-redux-saga
-yarn add redux react-redux redux-saga
-
-yarn global add json-server
-json-server server.json -p 3001 -w -d 500
-
-yarn add axios
-
-yarn add prop-types
-
-yarn add react-sound
-
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
