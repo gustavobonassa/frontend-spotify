@@ -8,6 +8,7 @@ import { Container, User } from './styles';
 
 import Button from '../../styles/components/Button';
 import Modal from '../Modal';
+import Input from '../Input';
 
 class Header extends Component {
     static propTypes = {
@@ -39,7 +40,14 @@ class Header extends Component {
         return (
             <Container>
                 <div>
-                    <Button onClick={this.handleInvite}>Convidar</Button>
+                    {/* <Button onClick={this.handleInvite}>Convidar</Button> */}
+                    <Input
+                        placeholder="buscar"
+                        style={{
+                            height: 30,
+                            fontSize: 12
+                        }}
+                    />
                 </div>
                 <div className="logout">
                     <User>

@@ -6,8 +6,12 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     background: #19191B;
-    padding : 12px;
+    padding: 12px;
     z-index: 100;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
 `;
 
 export const Current = styled.div`

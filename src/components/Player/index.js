@@ -51,7 +51,7 @@ const Player = ({
             <Current>
                 {!!player.currentSong && (
                     <Fragment>
-                        <img src={player.currentSong.thumbnail || 'https://cdn3.iconfinder.com/data/icons/audio-visual-acquicons/512/Eighth-Note-Double.png'} width="48" alt={player.currentSong.title} />
+                        <img src={player.currentSong.thumbnail || 'https://cdn3.iconfinder.com/data/icons/audio-visual-acquicons/512/Eighth-Note-Double.png'} width="48" alt={player.currentSong.title} style={{ objectFit: "cover" }} />
 
                         <div>
                             <span>{player.currentSong.name}</span>

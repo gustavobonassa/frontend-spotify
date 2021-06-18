@@ -12,6 +12,7 @@ export const Container = styled.aside`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: calc(100% - 70px);
 
     > div {
         padding: 25px;

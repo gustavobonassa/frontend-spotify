@@ -25,26 +25,32 @@ class Search extends Component {
             quality: 'highestaudio',
             type: 'mp3',
             url: '',
-            downloadProgress: []
+            downloadProgress: {},
         };
         this.chat = null;
     }
 
     componentDidMount() {
         connection.connect();
-        subscription = connection.subscribe('song');
-
-        subscription.on('message', (message) => {
-            //console.log(message);
+        subscription = connection.subscribe('song', (message) => {
+            console.log(message);
 
             this.setState({
-                downloadProgress: message
+                downloadProgress: {
+                    ...this.state.downloadProgress,
+                    [`${message.playlist}-${message.url}`]: message,
+                }
             });
 
-        })
+        });
         console.log(subscription)
         this.props.getPlaylistsRequest();
     }
+
+    componentWillUnmount () {
+        subscription.close();
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const { getSearchRequest } = this.props;
@@ -80,7 +86,7 @@ class Search extends Component {
             url: this.state.url,
             type: this.state.type,
             quality: this.state.quality,
-            playlist: parseInt(this.state.playlistId)
+            playlist: parseInt(this.state.playlistId),
         }
         //console.log(data)
         subscription.emit('song', data);
@@ -88,42 +94,42 @@ class Search extends Component {
     }
     render() {
         const { searchFe, maxResults, quality, playlistId, type, downloadProgress } = this.state;
-        const { results } = this.props.song.search;
+        const results = this.props.song.search;
         const { playlistModalOpen } = this.props.song;
         const { closeModal } = this.props;
-        //console.log(downloadProgress)
+        const download = Object.keys(downloadProgress);
+
         return (
             <Container>
                 <h1>Buscar música do youtube</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="searchFe" placeholder="Search" value={searchFe} onChange={this.handleInputChange} />
-                    <input type="number" name="maxResults" value={maxResults} onChange={this.handleInputChange} />
                     <Button type="submit">BUSCAR</Button>
                 </form>
-                {downloadProgress.length !== 0 && downloadProgress.map(dp =>
+                {download.length !== 0 && download.map(dp =>
                     <Downloading>
                         <div className="titleDown">
-                            <span>{dp.audioName}</span>
+                            <span>{downloadProgress[dp].audioName}</span>
                             <span>
-                                {dp.percent !== 100 &&
-                                    (<div>{dp.atualSize}MB - {dp.maxSize}MB</div>)
+                                {downloadProgress[dp].percent !== 100 &&
+                                    (<div>{downloadProgress[dp].atualSize}MB - {downloadProgress[dp].maxSize}MB</div>)
                                 }
                             </span>
                         </div>
-                        <Progress percent={dp.percent} indicating progress success={dp.percent === 100}>
-                            {dp.message}
+                        <Progress percent={downloadProgress[dp].percent} indicating progress success={downloadProgress[dp].percent === 100}>
+                            {downloadProgress[dp].message}
                         </Progress>
                     </Downloading>
                 )}
                 <AllResults>
                     {results && results.map(result => (
-                        <Result key={result.id}>
+                        <Result key={result.videoId}>
                             <div className="videoFull">
-                                <img src={result.thumbnails.default.url} alt="Thumb" />
+                                <img src={result.thumbnail} alt="Thumb" width="100" />
                                 <div className="videoName">{result.title}</div>
                             </div>
                             <div>
-                                <Button onClick={() => this.addSongClick(result.link)}>Adicionar á playlist</Button>
+                                <Button onClick={() => this.addSongClick(result.url)}>Adicionar á playlist</Button>
                             </div>
                         </Result>
                     ))}

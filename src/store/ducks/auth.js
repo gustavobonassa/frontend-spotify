@@ -7,9 +7,9 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-    signedIn: !!localStorage.getItem('@Omni:token'),
-    token: localStorage.getItem('@Omni:token') || null,
-    user: JSON.parse(localStorage.getItem('@Omni:user')) || null,
+    signedIn: !!localStorage.getItem('@Spoti:token'),
+    token: localStorage.getItem('@Spoti:token') || null,
+    user: JSON.parse(localStorage.getItem('@Spoti:user')) || null,
     roles: [],
     permissions: []
 };

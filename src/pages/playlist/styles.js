@@ -136,7 +136,7 @@ export const ButtonPlay = styled.button`
     border-radius: 16px;
     color: #FFF;
     line-height: 32px;
-    padding: 0 35px;
+    padding: 0 20px;
     border: 0;
     margin-top: 10px;
     font-size: 12px;
@@ -181,7 +181,7 @@ export const SongItem = styled.tr`
         font-size: 13px;
         padding: 0 10px;
         line-height: 40px;
-        background: ${props => props.selected ? '#282828' : 'trasparent'};
+        background: ${props => props.selected ? 'rgba(0,0,0,.3)' : 'trasparent'};
         color: ${props => props.playing ? '#1ED760' : '#FFF'};
         cursor: context-menu;
 
@@ -196,6 +196,6 @@ export const SongItem = styled.tr`
     }
 
     &:hover td {
-        background: #282828;
+        background: rgba(0,0,0,.3);
     }
 `;

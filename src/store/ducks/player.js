@@ -21,7 +21,7 @@ const INITIAL_STATE = {
     position: null,
     positionShown: null,
     duration: null,
-    volume: 100,
+    volume: localStorage.getItem('@volume') || 100,
     repeat: false
 };
 
@@ -60,6 +60,7 @@ export default function player(state = INITIAL_STATE, action) {
         case Types.SET_POSITION:
             return { ...state, position: state.duration * action.payload.percent, positionShown: null };
         case Types.SET_VOLUME:
+            localStorage.setItem('@volume', action.payload.volume);
             return { ...state, volume: action.payload.volume };
         case Types.SET_REPEAT:
             return { ...state, repeat: !state.repeat }

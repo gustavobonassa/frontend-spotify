@@ -9,7 +9,7 @@ import ErrorBox from '../../components/ErrorBox';
 
 import Browse from '../browse';
 import Playlist from '../playlist';
-import newPlaylist from '../newPlaylist';
+import AddPlaylist from '../AddPlaylist';
 import Search from '../Search';
 
 import { Wrapper, Container, Content } from '../../styles/components';
@@ -26,7 +26,7 @@ const Main = () => (
                     <Route exact path="/" component={Browse} />
                     <Route path="/playlists/:id" component={Playlist} />
                     <Route path="/search/:id?" component={Search} />
-                    <Route path="/newplaylist" component={newPlaylist} />
+                    <Route path="/newplaylist" component={AddPlaylist} />
                     <Route path="*" render={() => (<div>Página não encontrada</div>)} />
                 </Switch>
             </Content>

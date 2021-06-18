@@ -16,6 +16,6 @@ export const Content = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-
     padding: 0 20px;
+    height: calc(100% - 70px);
 `;

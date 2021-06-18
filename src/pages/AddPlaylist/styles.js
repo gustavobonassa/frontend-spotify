@@ -19,7 +19,7 @@ export const Container = styled.div`
         font-size: 16px;
 
         &:focus {
-            border-color: #7289da;
+            border-color: #f77f00;
         }
     }
     textarea {
@@ -36,7 +36,7 @@ export const Container = styled.div`
         font-size: 16px;
 
         &:focus {
-            border-color: #7289da;
+            border-color: #f77f00;
         }
     }
 `;

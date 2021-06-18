@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from '../store';
 
 const api = axios.create({
-    baseURL: 'https://adonis-be.herokuapp.com'
+    baseURL: 'http://localhost:3333'
 });
 
 api.interceptors.request.use((config) => {

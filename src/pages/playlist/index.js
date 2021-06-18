@@ -55,7 +55,7 @@ class Playlist extends Component {
     }
 
     componentDidMount() {
-        this.setState({ userId: JSON.parse(localStorage.getItem('@Omni:user')).id });
+        this.setState({ userId: JSON.parse(localStorage.getItem('@Spoti:user')).id });
         this.loadPlaylistDetails();
     }
 
@@ -163,11 +163,13 @@ class Playlist extends Component {
                 <ContextMenuTrigger id="some_unique_identifier">
                     <SongList cellPadding={0} cellSpacing={0}>
                         <thead>
-                            <tr><th></th>
+                            <tr>
+                                <th></th>
                                 <th>Título</th>
                                 <th>Artista</th>
                                 <th>Álbums</th>
-                                <th><img src={ClockIcon} alt="Duração" /></th></tr>
+                                <th><img src={ClockIcon} alt="Duração" /></th>
+                            </tr>
                         </thead>
                         <tbody>
                             {!playlist.songs ? (

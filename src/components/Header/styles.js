@@ -19,23 +19,6 @@ export const Container = styled.header`
             border-radius: 5px;
         }
     }
-    input {
-        height: 40px;
-        width: 100%;
-        padding: 10px;
-        border-radius: 3px;
-        border: 1px solid rgba(0, 0, 0, 0.3);
-        background-color: rgba(0, 0, 0, 0.1);
-        color: #f6f6f6;
-        margin-top: 8px;
-        margin-right: 5px;
-        transition: border 0.15s easy;
-        font-size: 16px;
-
-        &:focus {
-            border-color: #7289da;
-        }
-    }
 `;
 
 export const Search = styled.div`
@@ -58,7 +41,12 @@ export const Search = styled.div`
 export const User = styled.div`
     display: flex;
     align-items: center;
-    font-size:13px;
+    font-size: 13px;
+    border-radius: 15px;
+    background-color: black;
+    padding: 2px;
+    padding-right: 10px;
+    cursor: pointer;
 
     img {
         width: 27px;

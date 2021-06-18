@@ -45,7 +45,7 @@ class Sidebar extends Component {
                             <span>SUA BIBLIOTECA</span>
                         </li>
                         <li>
-                            <a href="">Seu Daily Mix</a>
+                            <Link to={`/random`}>Seu Daily Mix</Link>
                         </li>
 
                     </Nav>

@@ -9,8 +9,8 @@ export function* signIn(action) {
     try {
         const response = yield call(api.post, 'sessions', { email: action.payload.email, password: action.payload.password });
 
-        localStorage.setItem('@Omni:token', response.data.token);
-        localStorage.setItem('@Omni:user', JSON.stringify(response.data.user));
+        localStorage.setItem('@Spoti:token', response.data.token);
+        localStorage.setItem('@Spoti:user', JSON.stringify(response.data.user));
         yield put(AuthActions.signInSuccess(response.data));
         yield put(push('/'));
     } catch (err) {
@@ -23,8 +23,8 @@ export function* signIn(action) {
 }
 
 export function* signOut() {
-    localStorage.removeItem('@Omni:token');
-    localStorage.removeItem('@Omni:user');
+    localStorage.removeItem('@Spoti:token');
+    localStorage.removeItem('@Spoti:user');
 
     yield put(push('/signin'))
 }
@@ -33,8 +33,8 @@ export function* signUp(action) {
     try {
         const response = yield call(api.post, 'users', action.payload.data);
 
-        localStorage.setItem('@Omni:token', response.data.token);
-        localStorage.setItem('@Omni:user', JSON.stringify(response.data.user));
+        localStorage.setItem('@Spoti:token', response.data.token);
+        localStorage.setItem('@Spoti:user', JSON.stringify(response.data.user));
 
         yield put(AuthActions.signInSuccess(response.data.token));
         yield put(push('/'));
