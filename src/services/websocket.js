@@ -3,7 +3,7 @@ import Ws from '@adonisjs/websocket-client';
 
 export class SocketConnection {
     connect() {
-        this.ws = Ws(`ws://localhost:3333`)
+        this.ws = Ws(`wss://adonis-be.herokuapp.com/`)
             .connect();
 
         this.ws.on('open', () => {
