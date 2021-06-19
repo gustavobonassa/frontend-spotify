@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import Dropdown from "../../components/Dropdown";
+import api from "../../services/api";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -14,6 +15,8 @@ import Loading from "../../components/Loading";
 import Button from "../../styles/components/Button";
 import Modal from "../../components/Modal";
 import axios from "axios";
+import JSZip, { saveAs } from "jszip";
+import JSZipUtils from "jszip-utils";
 
 import {
   Container,
@@ -119,8 +122,7 @@ class Playlist extends Component {
     const { openDelModal } = this.props;
     openDelModal();
   };
-  handleSubmitDel = (e) => {
-    e.preventDefault();
+  handleSubmitDel = () => {
     const { deleteSong, closeDelSongModal } = this.props;
     const { id } = this.props.match.params;
 
@@ -145,6 +147,12 @@ class Playlist extends Component {
     }
     this.props.loadSong(somSelected || playlist.songs[0], playlist.songs);
   };
+
+  downloadPlaylist() {
+    const playlist = this.props.playlistDetails.data;
+
+    api.get(`/playlistdownload/${playlist.id}?_embed=songs`);
+  }
 
   renderDetails = () => {
     const playlist = this.props.playlistDetails.data;
@@ -172,7 +180,10 @@ class Playlist extends Component {
                       <ButtonPlay color="#b77d41">ADICIONAR MÚSICA</ButtonPlay>
                     </Link>
                     <ButtonPlay color="#8c8ccc" onClick={this.delPlaylist}>
-                      <Dropdown func={this.modalDelPlaylist} />
+                      <Dropdown
+                        func={() => this.modalDelPlaylist()}
+                        downloadPlaylist={() => this.downloadPlaylist()}
+                      />
                     </ButtonPlay>
                   </>
                 )}
@@ -239,12 +250,12 @@ class Playlist extends Component {
             </div>
             {delSongModalOpen && (
               <Modal>
-                <form onSubmit={this.handleSubmitDel}>
+                <form>
                   <div>
                     Tem certeza que deseja excluir a música{" "}
                     <strong>{clickedSong.name}</strong>?
                   </div>
-                  <Button type="submit" color="danger">
+                  <Button color="danger" onClick={() => this.handleSubmitDel()}>
                     EXCLUIR
                   </Button>
                   <Button size="small" color="gray" onClick={closeDelSongModal}>

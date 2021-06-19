@@ -5,7 +5,7 @@ import { Dropdown } from "semantic-ui-react";
 // The "Publish To Web" item should contain a sub-menu.
 class DropdownEx extends React.Component {
   render() {
-    const { func } = this.props;
+    const { func, downloadPlaylist } = this.props;
     return (
       <Dropdown text="Opções">
         <Dropdown.Menu>
@@ -15,7 +15,10 @@ class DropdownEx extends React.Component {
             onClick={() => func()}
           />
           <Dropdown.Divider />
-          <Dropdown.Item text="Download all" description="Em breve" />
+          <Dropdown.Item
+            text="Baixar playlist"
+            onClick={() => downloadPlaylist()}
+          />
         </Dropdown.Menu>
       </Dropdown>
     );

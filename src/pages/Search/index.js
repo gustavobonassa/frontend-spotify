@@ -107,9 +107,7 @@ class Search extends Component {
     });
     openModal();
   };
-  addSongSubmit = (e) => {
-    e.preventDefault();
-
+  addSongSubmit = () => {
     const { closeModal } = this.props;
     const data = {
       url: this.state.url,
@@ -136,7 +134,7 @@ class Search extends Component {
         <Container>
           {playlistModalOpen && (
             <Modal>
-              <form onSubmit={this.addSongSubmit}>
+              <form>
                 <span>SELECIONE A PLAYLIST</span>
                 <select
                   name="playlistId"
@@ -169,7 +167,7 @@ class Search extends Component {
                   <option value="highestaudio">Alta</option>
                   <option value="lowest">Baixa</option>
                 </select>
-                <Button type="submit">BAIXAR</Button>
+                <Button onClick={() => this.addSongSubmit()}>BAIXAR</Button>
                 <Button size="small" color="gray" onClick={closeModal}>
                   Cancelar
                 </Button>

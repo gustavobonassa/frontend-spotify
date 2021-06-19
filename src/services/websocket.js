@@ -23,7 +23,7 @@ export class SocketConnection {
       const result = this.ws.subscribe(channel);
 
       result.on("message", (message) => {
-        console.log("Incoming", message);
+        // console.log("Incoming", message);
         handler(message);
       });
 

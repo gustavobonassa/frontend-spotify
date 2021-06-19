@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3333";
-const SOCKET_URL = "ws://localhost:3333/";
+const API_URL = "https://adonis-be.herokuapp.com";
+const SOCKET_URL = "wss://adonis-be.herokuapp.com/";
 
 export { API_URL, SOCKET_URL };

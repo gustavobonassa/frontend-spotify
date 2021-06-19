@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { Spinner } from "../../components/Loading/styles";
 
 export const Container = styled.div`
-  flex: 1;
-  margin-top: 30px;
+  padding: 20px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -22,6 +21,8 @@ export const Title = styled.h1`
 export const List = styled.div`
   margin-top: 20px;
   display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
 `;
 
 export const Playlist = styled(Link)`
