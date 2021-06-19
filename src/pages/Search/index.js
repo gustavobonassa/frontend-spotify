@@ -190,6 +190,7 @@ class Search extends Component {
                   style={{
                     marginLeft: 5,
                   }}
+                  onClick={(e) => this.handleSubmit(e)}
                 >
                   BUSCAR
                 </Button>

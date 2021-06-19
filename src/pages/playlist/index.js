@@ -129,8 +129,7 @@ class Playlist extends Component {
     closeDelSongModal();
     deleteSong(this.state.clickedSong.id, id);
   };
-  handleSubmitPlaylistDel = (e) => {
-    e.preventDefault();
+  handleSubmitPlaylistDel = () => {
     const { deletePlaylist, closeDelModal } = this.props;
     const { id } = this.props.match.params;
 
@@ -266,9 +265,9 @@ class Playlist extends Component {
             )}
             {delModalOpen && (
               <Modal>
-                <form onSubmit={this.handleSubmitPlaylistDel}>
+                <form>
                   <div>Tem certeza que deseja excluir essa playlist?</div>
-                  <Button type="submit" color="danger">
+                  <Button color="danger" onClick={() => this.handleSubmitPlaylistDel()}>
                     EXCLUIR
                   </Button>
                   <Button size="small" color="gray" onClick={closeDelModal}>

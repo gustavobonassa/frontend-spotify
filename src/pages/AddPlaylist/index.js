@@ -17,7 +17,6 @@ class newPlaylist extends Component {
     imgSrc: null,
   };
   handleSubmit = (e) => {
-    e.preventDefault();
     const data = new FormData();
 
     data.append("thumbnail", this.state.thumbnail);
@@ -48,7 +47,7 @@ class newPlaylist extends Component {
       <Container>
         <h1>Criar nova playlist</h1>
         <NewPlaylist>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             {this.state.imgSrc && (
               <label htmlFor="thumbnail">
                 <img src={this.state.imgSrc} alt="Thumb" width="120%" />
@@ -79,7 +78,7 @@ class newPlaylist extends Component {
               onChange={this.handleInputChange}
               placeholder="Descrição da playlist"
             ></textarea>
-            <Button type="submit">Criar</Button>
+            <Button onClick={() => this.handleSubmit()}>Criar</Button>
           </form>
         </NewPlaylist>
       </Container>

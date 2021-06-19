@@ -41,7 +41,7 @@ export function* signUp(action) {
     localStorage.setItem("@Spoti:token", response.data.token);
     localStorage.setItem("@Spoti:user", JSON.stringify(response.data.user));
 
-    yield put(AuthActions.signInSuccess(response.data.token));
+    yield put(AuthActions.signInSuccess(response.data));
     yield put(push("/"));
   } catch (err) {
     yield put(
