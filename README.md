@@ -6,9 +6,10 @@ https://github.com/gustavobonassa/backend-spotify
 ```
 
 
-![alt text](https://i.imgur.com/RZziuJ0.mp4)
+![alt text](https://i.imgur.com/RZziuJ0.gif)
 
 ### To Do
+- [ ] Adicionar testes
 - [ ] Passar tudo para TypeScript
 - [ ] Salvar musica tocando no cache (caso de F5 na pagina ele volta a tocar)
 - [ ] Melhorias no Design
@@ -20,27 +21,18 @@ https://github.com/gustavobonassa/backend-spotify
 - [ ] Versao desktop com Electron
 
 
-## Available Scripts
+## Scripts disponíveis
 
-In the project directory, you can run:
+No diretório do projeto, você pode rodar:
 
 ### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Executa o aplicativo no modo de desenvolvimento.<br>
+Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
+Inicia os teste.<br>
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
