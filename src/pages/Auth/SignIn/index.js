@@ -1,56 +1,67 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Creators as AuthActions } from '../../../store/ducks/auth';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Creators as AuthActions } from "../../../store/ducks/auth";
 
-import Button from '../../../styles/components/Button';
-import { Container, SignForm } from '../styles';
-
+import Button from "../../../styles/components/Button";
+import { Container, SignForm } from "../styles";
 
 class SignIn extends Component {
-    static propTypes = {
-        signInRequest: PropTypes.func.isRequired
-    }
-    state = {
-        email: '',
-        password: ''
-    };
-    handleSubmit = (e) => {
-        e.preventDefault();
+  static propTypes = {
+    signInRequest: PropTypes.func.isRequired,
+  };
+  state = {
+    email: "",
+    password: "",
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-        const { email, password } = this.state;
-        const { signInRequest } = this.props;
+    const { email, password } = this.state;
+    const { signInRequest } = this.props;
 
-        signInRequest(email, password);
-    }
-    handleInputChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-    render(){
-        const { email, password } = this.state;
-        return(
-            <Container>
-                <SignForm onSubmit={this.handleSubmit}>
-                    <h1>LOGIN</h1>
+    signInRequest(email, password);
+  };
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  render() {
+    const { email, password } = this.state;
+    return (
+      <Container>
+        <SignForm onSubmit={this.handleSubmit}>
+          <h1>LOGIN</h1>
 
-                    <span>E-MAIL</span>
-                    <input type="email" name="email" value={email} onChange={this.handleInputChange}/>
+          <span>E-MAIL</span>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={this.handleInputChange}
+          />
 
-                    <span>SENHA</span>
-                    <input type="password" name="password" value={password} onChange={this.handleInputChange}/>
+          <span>SENHA</span>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={this.handleInputChange}
+          />
 
-                    <Button size="big" type="submit">Entrar</Button>
-                    <Link to="/signup">Criar conta</Link>
-                </SignForm>
-            </Container>
-        )
-    }
+          <Button size="big" type="submit">
+            Entrar
+          </Button>
+          <Link to="/signup">Criar conta</Link>
+        </SignForm>
+      </Container>
+    );
+  }
 }
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(AuthActions, dispatch);
 
 export default connect(null, mapDispatchToProps)(SignIn);

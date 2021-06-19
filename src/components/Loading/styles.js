@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const rotate360 = keyframes`
     from {
@@ -11,5 +11,5 @@ const rotate360 = keyframes`
 `;
 
 export const Spinner = styled.img`
-    animation: ${rotate360} 2s linear infinite;
+  animation: ${rotate360} 2s linear infinite;
 `;

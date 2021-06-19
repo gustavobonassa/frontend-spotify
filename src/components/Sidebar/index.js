@@ -1,82 +1,84 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Creators as PlaylistsActions } from '../../store/ducks/playlists';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Creators as PlaylistsActions } from "../../store/ducks/playlists";
 
-import { Container, NewPlaylist, Nav } from './styles';
+import { Container, NewPlaylist, Nav } from "./styles";
 
-import Loading from '../Loading';
+import Loading from "../Loading";
 
-import AddPlaylistIcon from '../../assets/images/add_playlist.svg';
+import AddPlaylistIcon from "../../assets/images/add_playlist.svg";
 
 class Sidebar extends Component {
-    static propTypes = {
-        getPlaylistsRequest: PropTypes.func.isRequired,
-        playlists: PropTypes.shape({
-            data: PropTypes.arrayOf(PropTypes.shape({
-                id: PropTypes.number,
-                title: PropTypes.string
-            })),
-            loading: PropTypes.bool,
-        }).isRequired,
-    }
+  static propTypes = {
+    getPlaylistsRequest: PropTypes.func.isRequired,
+    playlists: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          title: PropTypes.string,
+        })
+      ),
+      loading: PropTypes.bool,
+    }).isRequired,
+  };
 
-    componentDidMount() {
-        this.props.getPlaylistsRequest();
-    }
+  componentDidMount() {
+    this.props.getPlaylistsRequest();
+  }
 
-    render() {
-        return (
-            <Container>
-                <div>
-                    <Nav main>
-                        <li>
-                            <Link to="/">Inicio</Link>
-                        </li>
-                        <li>
-                            <Link to="/search">Buscar música</Link>
-                        </li>
-                    </Nav>
-                    <Nav>
-                        <li>
-                            <span>SUA BIBLIOTECA</span>
-                        </li>
-                        <li>
-                            <Link to={`/random`}>Seu Daily Mix</Link>
-                        </li>
+  render() {
+    return (
+      <Container>
+        <div>
+          <Nav main>
+            <li>
+              <Link to="/">Inicio</Link>
+            </li>
+            <li>
+              <Link to="/search">Buscar música</Link>
+            </li>
+          </Nav>
+          <Nav>
+            <li>
+              <span>EXPLORAR</span>
+            </li>
+            <li>
+              <Link to={`/random`}>Seu Daily Mix</Link>
+            </li>
+          </Nav>
 
-                    </Nav>
-
-                    <Nav>
-                        <li>
-                            <span>PLAYLISTS</span>
-                            {this.props.playlists.loading && <Loading />}
-                        </li>
-                        {this.props.playlists.data.map(playlist => (
-                            <li key={playlist.id}>
-                                <Link to={`/playlists/${playlist.id}`}>{playlist.title}</Link>
-                            </li>
-                        ))}
-                    </Nav>
-                </div>
-                <Link to="/newplaylist">
-                    <NewPlaylist>
-                        <img src={AddPlaylistIcon} alt="Adicionar playlist" />
-                        Nova playlist
-                    </NewPlaylist>
-                </Link>
-            </Container>
-        );
-    }
+          <Nav>
+            <li>
+              <span>PLAYLISTS</span>
+              {this.props.playlists.loading && <Loading />}
+            </li>
+            {this.props.playlists.data.map((playlist) => (
+              <li key={playlist.id}>
+                <Link to={`/playlists/${playlist.id}`}>{playlist.title}</Link>
+              </li>
+            ))}
+          </Nav>
+        </div>
+        <Link to="/newplaylist">
+          <NewPlaylist>
+            <img src={AddPlaylistIcon} alt="Adicionar playlist" />
+            Nova playlist
+          </NewPlaylist>
+        </Link>
+      </Container>
+    );
+  }
 }
 
-const mapStateToProps = state => ({
-    playlists: state.playlists,
+const mapStateToProps = (state) => ({
+  playlists: state.playlists,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(PlaylistsActions, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(PlaylistsActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

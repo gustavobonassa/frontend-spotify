@@ -1,20 +1,21 @@
-import axios from 'axios';
-import store from '../store';
+import axios from "axios";
+import store from "../store";
+import { API_URL } from "../config/constant";
 
 const api = axios.create({
-    baseURL: 'https://adonis-be.herokuapp.com'
+  baseURL: API_URL,
 });
 
 api.interceptors.request.use((config) => {
-    const { token } = store.getState().auth;
+  const { token } = store.getState().auth;
 
-    const headers = { ...config.headers };
+  const headers = { ...config.headers };
 
-    if (token) {
-        headers.Authorization = `Bearer ${token}`;
-    }
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
 
-    return { ...config, headers };
-})
+  return { ...config, headers };
+});
 
 export default api;

@@ -1,11 +1,8 @@
-import React from 'react';
-import { InputStyle } from './styles';
-
+import React from "react";
+import { InputStyle } from "./styles";
 
 const Input = (props) => {
-    return (
-        <InputStyle {...props} />
-    );
-}
+  return <InputStyle {...props} />;
+};
 
 export default Input;

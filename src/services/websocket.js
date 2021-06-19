@@ -1,44 +1,43 @@
-
-import Ws from '@adonisjs/websocket-client';
+import Ws from "@adonisjs/websocket-client";
+import { SOCKET_URL } from "../config/constant";
 
 export class SocketConnection {
-    connect() {
-        this.ws = Ws(`wss://adonis-be.herokuapp.com/`)
-            .connect();
+  connect() {
+    this.ws = Ws(SOCKET_URL).connect();
 
-        this.ws.on('open', () => {
-            console.log('Connection initialized')
-        });
+    this.ws.on("open", () => {
+      console.log("Connection initialized");
+    });
 
-        this.ws.on('close', () => {
-            console.log('Connection closed')
-        });
+    this.ws.on("close", () => {
+      console.log("Connection closed");
+    });
 
-        return this
+    return this;
+  }
+
+  subscribe(channel, handler) {
+    if (!this.ws) {
+      setTimeout(() => this.subscribe(channel), 1000);
+    } else {
+      const result = this.ws.subscribe(channel);
+
+      result.on("message", (message) => {
+        console.log("Incoming", message);
+        handler(message);
+      });
+
+      result.on("error", (error) => {
+        console.error(error);
+      });
+
+      return result;
     }
+  }
 
-    subscribe(channel, handler) {
-        if (!this.ws) {
-            setTimeout(() => this.subscribe(channel), 1000)
-        } else {
-            const result = this.ws.subscribe(channel);
-
-            result.on('message', message => {
-                console.log('Incoming', message);
-                handler(message)
-            });
-
-            result.on('error', (error) => {
-                console.error(error)
-            });
-
-            return result
-        }
-    }
-
-    close() {
-        this.ws.close();
-    }
+  close() {
+    this.ws.close();
+  }
 }
 
-export default new SocketConnection()
+export default new SocketConnection();

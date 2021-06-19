@@ -1,3 +1,24 @@
+Este projeto tem como objetivo criar uma interface parecida com a do Spotify no qual as músicas são baixadas diretamente do Youtube e salvas em uma nuvem externa.
+
+O repositório para acessar o backend pode ser encontrado em:
+```
+https://github.com/gustavobonassa/backend-spotify
+```
+
+
+![alt text](https://i.imgur.com/RZziuJ0.mp4)
+
+### To Do
+- [ ] Passar tudo para TypeScript
+- [ ] Salvar musica tocando no cache (caso de F5 na pagina ele volta a tocar)
+- [ ] Melhorias no Design
+- [ ] Daily Mix
+- [ ] Editar Perfil
+- [ ] Editar Playlist
+- [ ] Responsividade
+- [ ] Versao mobile com React-Native
+- [ ] Versao desktop com Electron
+
 
 ## Available Scripts
 
@@ -23,13 +44,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-### To Do
-- [] Passar tudo para TypeScript
-- [] Salvar musica tocando no cache (caso de F5 na pagina ele volta a tocar)
-- [] Melhorias no Design
-- [] Daily Mix
-- [] Editar Perfil
-- [] Editar Playlist
-- [] Responsividade
-- [] Versao mobile com React-Native
-- [] Versao desktop com Electron
